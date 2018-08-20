@@ -32,7 +32,7 @@
 #           x: Optimal value of the decision variables.
 #       duals: solution of the dual problem.
 
-function [obj, x, duals] = lp_solve(f, a, b, e, vlb, vub, xint, scalemode, keep)
+function [obj, x, duals, result] = lp_solve(f, a, b, e, vlb, vub, xint, scalemode, keep)
 
 if nargin == 0
         help lp_solve;
@@ -83,6 +83,7 @@ if nargin > 7
 end
 
 result=octlpsolve('solve', lp);
+obj = x = duals = [];
 if result == 0 | result == 1 | result == 11 | result == 12
   [obj, x, duals] = octlpsolve('get_solution', lp);
 end
